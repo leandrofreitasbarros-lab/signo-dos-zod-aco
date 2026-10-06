@@ -1,0 +1,2617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Meu Signo — Descubra seu signo e sua personalidade</title>
+  <meta name="description" content="Descubra seu signo solar, características, personalidade, compatibilidade amorosa e muito mais.">
+  <meta name="keywords" content="signo, zodiaco, astrologia, horóscopo, personalidade, compatibilidade">
+  <meta name="theme-color" content="#0b0a1a">
+  <!-- Open Graph básico -->
+  <meta property="og:title" content="Meu Signo — Descubra seu signo e sua personalidade">
+  <meta property="og:description" content="Descubra seu signo solar, características, personalidade, compatibilidade amorosa e muito mais.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <!-- Font opcional (funciona sem) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #0b0a1a;
+      --bg-mid: #14122b;
+      --glass-bg: rgba(25, 20, 50, 0.55);
+      --glass-border: rgba(200, 180, 255, 0.2);
+      --gold: #f5d76e;
+      --gold-soft: #e6c86b;
+      --purple: #a07cf0;
+      --violet: #7c5cbf;
+      --pink: #e08fc7;
+      --blue: #5b8cff;
+      --text-primary: #f0eaff;
+      --text-secondary: #c5bce0;
+      --text-muted: #9a8fc0;
+      --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --transition: 0.25s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(ellipse at 30% 20%, #1f1b3a 0%, #0b0a1a 70%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      padding: 0 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== ESTRELAS DE FUNDO ===== */
+    .stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle var(--duration, 3s) infinite alternate ease-in-out;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* ===== LAYOUT GERAL ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      padding: 0 0 40px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      background: rgba(20, 18, 43, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+      border-radius: 0 0 var(--radius) var(--radius);
+      margin: 0 -16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #d9c9ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo span {
+      font-size: 1.8rem;
+      -webkit-text-fill-color: initial;
+      background: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--pink));
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .menu-toggle:hover {
+      color: var(--gold);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      padding: 40px 20px 60px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #fff 0%, #d9c9ff 40%, #f5d76e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 620px;
+      margin: 0 auto 28px;
+      padding: 0 12px;
+    }
+
+    .zodiac-wheel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px auto 30px;
+      font-size: 2rem;
+      opacity: 0.9;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .zodiac-wheel span {
+      display: inline-block;
+      filter: drop-shadow(0 0 12px rgba(245, 215, 110, 0.4));
+      transition: transform 0.3s;
+    }
+
+    .zodiac-wheel span:hover {
+      transform: scale(1.3) rotate(10deg);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--violet), var(--purple), var(--pink));
+      border: none;
+      border-radius: 60px;
+      padding: 16px 44px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 12px 30px -8px rgba(124, 92, 191, 0.6);
+      text-decoration: none;
+      font-family: inherit;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 20px 40px -8px rgba(160, 124, 240, 0.8);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* ===== CARDS GENÉRICOS ===== */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(200, 180, 255, 0.4);
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8);
+    }
+
+    /* ===== FORMULÁRIO ===== */
+    .form-section {
+      max-width: 580px;
+      margin: 0 auto 50px;
+      text-align: center;
+    }
+
+    .form-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .form-section .sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .input-group label {
+      text-align: left;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-left: 4px;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(200, 180, 255, 0.25);
+      background: rgba(10, 8, 25, 0.7);
+      color: #fff;
+      font-size: 1.05rem;
+      font-family: inherit;
+      transition: var(--transition);
+      outline: none;
+      color-scheme: dark;
+    }
+
+    input[type="date"]:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 4px rgba(160, 124, 240, 0.2);
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.8);
+      cursor: pointer;
+    }
+
+    .btn-reveal {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.1rem;
+      margin-top: 8px;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    /* ===== RESULTADO ===== */
+    .result-section {
+      display: none;
+      margin-top: 20px;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .result-section.visible {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-hero {
+      text-align: center;
+      padding: 36px 20px 28px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(30, 24, 60, 0.9), rgba(15, 12, 35, 0.95));
+      border: 1px solid rgba(200, 180, 255, 0.15);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(160, 124, 240, 0.08), transparent 60%);
+      pointer-events: none;
+    }
+
+    .result-hero .label {
+      font-size: 1rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .result-hero .sign-name {
+      font-size: clamp(2.6rem, 8vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+      background: linear-gradient(135deg, #fff 0%, #f5d76e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .result-hero .sign-symbol {
+      font-size: 4rem;
+      line-height: 1;
+      display: block;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 20px rgba(245, 215, 110, 0.5));
+    }
+
+    .result-hero .period {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-top: 8px;
+    }
+
+    .result-hero .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(200, 180, 255, 0.2);
+      border-radius: 40px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* ===== GRID DE INFORMAÇÕES ===== */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .info-card {
+      background: rgba(20, 18, 43, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(200, 180, 255, 0.12);
+      border-radius: var(--radius-sm);
+      padding: 18px 14px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .info-card:hover {
+      border-color: rgba(200, 180, 255, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .info-card .icon {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .info-card .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .info-card .value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* ===== SEÇÕES ===== */
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 40px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title span {
+      font-size: 1.6rem;
+    }
+
+    /* ===== CARACTERÍSTICAS BARRAS ===== */
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px 32px;
+    }
+
+    .trait-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .trait-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .trait-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .trait-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, var(--violet), var(--pink), var(--gold));
+      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ===== PONTOS FORTES/FRACOS ===== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .list-card {
+      background: rgba(20, 18, 43, 0.5);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(200, 180, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 22px 20px;
+    }
+
+    .list-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .list-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .list-card li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .list-card li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 0.8rem;
+    }
+
+    .list-card.negative li::before {
+      content: '⚠';
+      color: var(--pink);
+    }
+
+    /* ===== COMPATIBILIDADE ===== */
+    .compat-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 12px 0 20px;
+    }
+
+    .compat-badge {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(200, 180, 255, 0.2);
+      border-radius: 40px;
+      padding: 8px 18px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: default;
+      transition: var(--transition);
+    }
+
+    .compat-badge:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: scale(1.04);
+    }
+
+    .compat-badge .sym {
+      font-size: 1.2rem;
+    }
+
+    /* ===== FERRAMENTA DE COMPATIBILIDADE ===== */
+    .tool-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 24px;
+    }
+
+    .tool-row .field {
+      flex: 1 1 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tool-row label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(200, 180, 255, 0.25);
+      background: rgba(10, 8, 25, 0.7);
+      color: #fff;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c5bce0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    select:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 4px rgba(160, 124, 240, 0.2);
+    }
+
+    select option {
+      background: #1a1730;
+      color: #fff;
+    }
+
+    .compat-result {
+      display: none;
+      margin-top: 20px;
+      padding: 24px;
+      background: rgba(20, 18, 43, 0.6);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(200, 180, 255, 0.15);
+    }
+
+    .compat-result.visible {
+      display: block;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .compat-score {
+      font-size: 2.6rem;
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .compat-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .compat-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .compat-bar-item .lbl {
+      min-width: 80px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .compat-bar-item .bar {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .compat-bar-item .fill {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, var(--violet), var(--pink));
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .compat-bar-item .pct {
+      min-width: 40px;
+      text-align: right;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    /* ===== CURIOSIDADES ===== */
+    .curiosity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .curiosity-item {
+      background: rgba(20, 18, 43, 0.5);
+      border: 1px solid rgba(200, 180, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .curiosity-item:hover {
+      border-color: rgba(200, 180, 255, 0.3);
+    }
+
+    .curiosity-item .icon {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .curiosity-item .label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .curiosity-item .val {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* ===== HORÓSCOPO ===== */
+    .horoscope-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .horoscope-card {
+      background: rgba(20, 18, 43, 0.5);
+      border: 1px solid rgba(200, 180, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      transition: var(--transition);
+    }
+
+    .horoscope-card:hover {
+      border-color: rgba(200, 180, 255, 0.3);
+    }
+
+    .horoscope-card .cat {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .horoscope-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* ===== MENSAGEM ===== */
+    .message-card {
+      text-align: center;
+      padding: 32px 24px;
+    }
+
+    .message-card blockquote {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 20px;
+      line-height: 1.7;
+      quotes: "“" "”";
+    }
+
+    .message-card blockquote::before {
+      content: open-quote;
+      font-size: 2rem;
+      color: var(--gold);
+      line-height: 0;
+      vertical-align: -0.3em;
+      margin-right: 4px;
+    }
+
+    .message-card blockquote::after {
+      content: close-quote;
+      font-size: 2rem;
+      color: var(--gold);
+      line-height: 0;
+      vertical-align: -0.3em;
+      margin-left: 4px;
+    }
+
+    /* ===== BOTÕES DE AÇÃO ===== */
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 28px 0 10px;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(200, 180, 255, 0.25);
+      border-radius: 40px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(200, 180, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0);
+    }
+
+    /* ===== LISTA 12 SIGNOS ===== */
+    .zodiac-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .zodiac-card {
+      background: rgba(20, 18, 43, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(200, 180, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 22px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .zodiac-card:hover {
+      border-color: rgba(200, 180, 255, 0.4);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 30px -10px rgba(160, 124, 240, 0.3);
+    }
+
+    .zodiac-card .sym {
+      font-size: 2.6rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .zodiac-card .name {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .zodiac-card .dates {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .zodiac-card .elem {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 15, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: linear-gradient(145deg, #1a1730, #14122b);
+      border: 1px solid rgba(200, 180, 255, 0.2);
+      border-radius: var(--radius);
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 36px 32px;
+      position: relative;
+      box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.9);
+      animation: slideUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      scrollbar-width: thin;
+      scrollbar-color: var(--violet) transparent;
+    }
+
+    .modal-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-content::-webkit-scrollbar-thumb {
+      background: var(--violet);
+      border-radius: 20px;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 50%;
+    }
+
+    .modal-close:hover {
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    .modal-content h2 {
+      font-size: 2rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-content .modal-symbol {
+      font-size: 2.8rem;
+    }
+
+    .modal-content .modal-period {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .modal-content .modal-desc {
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+
+    .modal-content .modal-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .modal-content .modal-meta .item {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .modal-content .modal-meta .item .lbl {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .modal-content .modal-meta .item .val {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .modal-content .modal-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .modal-content .modal-traits .trait-badge {
+      background: rgba(160, 124, 240, 0.15);
+      border: 1px solid rgba(160, 124, 240, 0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* ===== BOTÃO VOLTAR AO TOPO ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet), var(--purple));
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(124, 92, 191, 0.5);
+      transition: var(--transition);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+    }
+
+    .back-to-top.visible {
+      display: flex;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 32px rgba(160, 124, 240, 0.7);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      margin-top: 60px;
+      padding: 36px 24px 28px;
+      background: rgba(10, 8, 25, 0.8);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(200, 180, 255, 0.08);
+      border-radius: var(--radius) var(--radius) 0 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer .footer-logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 16px 0 20px;
+      list-style: none;
+    }
+
+    footer .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    footer .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    footer .disclaimer {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ===== LOADING ===== */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 15, 0.85);
+      backdrop-filter: blur(12px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 2000;
+      color: #fff;
+      font-size: 1.3rem;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .loading-spinner {
+      font-size: 3.5rem;
+      animation: spin 1.2s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 820px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 16px;
+        right: 16px;
+        background: rgba(20, 18, 43, 0.96);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-sm);
+        padding: 20px;
+        gap: 16px;
+        box-shadow: var(--shadow);
+        z-index: 99;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      header {
+        padding: 14px 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .glass-card {
+        padding: 22px 16px;
+      }
+
+      .result-hero {
+        padding: 24px 12px 20px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .info-card {
+        padding: 14px 8px;
+      }
+
+      .info-card .value {
+        font-size: 0.95rem;
+      }
+
+      .curiosity-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .horoscope-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .zodiac-list {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .zodiac-card .sym {
+        font-size: 2rem;
+      }
+
+      .modal-content {
+        padding: 24px 18px;
+      }
+
+      .modal-content .modal-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-secondary {
+        justify-content: center;
+      }
+
+      .back-to-top {
+        bottom: 16px;
+        right: 16px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+      }
+    }
+
+    /* ===== ACESSIBILIDADE / REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* Foco visível */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* ===== IMPRESSÃO ===== */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #111 !important;
+        padding: 0;
+        font-size: 12pt;
+      }
+
+      .stars-container,
+      header,
+      .hero,
+      .form-section,
+      .action-buttons,
+      .back-to-top,
+      footer,
+      .zodiac-list,
+      .modal-overlay,
+      .loading-overlay,
+      .tool-row,
+      .compat-result,
+      .btn-primary,
+      .btn-secondary,
+      .btn-reveal,
+      .note {
+        display: none !important;
+      }
+
+      .result-section {
+        display: block !important;
+        margin: 0 !important;
+      }
+
+      .glass-card,
+      .result-hero,
+      .info-card,
+      .list-card,
+      .curiosity-item,
+      .horoscope-card {
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        color: #111 !important;
+      }
+
+      .result-hero .sign-name {
+        -webkit-text-fill-color: #111 !important;
+        background: none !important;
+        color: #111 !important;
+      }
+
+      .result-hero .sign-symbol {
+        filter: none !important;
+      }
+
+      .trait-fill {
+        background: #555 !important;
+      }
+
+      .trait-bar {
+        background: #ddd !important;
+      }
+
+      .section-title {
+        color: #111 !important;
+      }
+
+      .pill {
+        background: #eee !important;
+        border: 1px solid #ccc !important;
+        color: #111 !important;
+      }
+
+      .list-card li {
+        color: #333 !important;
+      }
+
+      .list-card li::before {
+        color: #888 !important;
+      }
+
+      .compat-badge {
+        background: #eee !important;
+        border: 1px solid #ccc !important;
+        color: #111 !important;
+      }
+
+      .curiosity-item .val {
+        color: #111 !important;
+      }
+
+      .horoscope-card p {
+        color: #333 !important;
+      }
+
+      .message-card blockquote {
+        color: #333 !important;
+      }
+
+      .message-card blockquote::before,
+      .message-card blockquote::after {
+        color: #888 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Estrelas de fundo (inseridas via JS) -->
+  <div class="stars-container" id="starsContainer" aria-hidden="true"></div>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay" role="status" aria-live="polite">
+    <div class="loading-spinner">✨</div>
+    <p>Consultando as estrelas...</p>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo" aria-label="Meu Signo">
+      <span>✨</span> Meu Signo
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav aria-label="Navegação principal">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#descobrir" class="nav-link">Descobrir meu signo</a></li>
+        <li><a href="#os12" class="nav-link">Os 12 signos</a></li>
+        <li><a href="#compatibilidade" class="nav-link">Compatibilidade</a></li>
+        <li><a href="#sobre" class="nav-link">Sobre astrologia</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="hero" id="inicio">
+      <h1>Descubra o seu signo</h1>
+      <p>Digite sua data de nascimento e descubra tudo sobre sua personalidade, seus relacionamentos, sua compatibilidade e muito mais.</p>
+      <div class="zodiac-wheel" aria-hidden="true">
+        <span>♈</span><span>♉</span><span>♊</span><span>♋</span><span>♌</span><span>♍</span>
+        <span>♎</span><span>♏</span><span>♐</span><span>♑</span><span>♒</span><span>♓</span>
+      </div>
+      <a href="#descobrir" class="btn-primary">Descobrir meu signo ✨</a>
+    </section>
+
+    <!-- Formulário -->
+    <section class="form-section glass-card" id="descobrir">
+      <h2>Qual é a sua data de nascimento?</h2>
+      <p class="sub">Usamos apenas sua data para calcular seu signo solar.</p>
+      <form id="birthForm" novalidate>
+        <div class="input-group">
+          <label for="birthDate">Data de nascimento</label>
+          <input type="date" id="birthDate" name="birthDate" required aria-required="true">
+        </div>
+        <button type="submit" class="btn-primary btn-reveal" id="revealBtn">Revelar meu signo</button>
+        <p class="note">Não enviamos seus dados para nenhum servidor. Tudo é calculado localmente.</p>
+      </form>
+    </section>
+
+    <!-- Resultado -->
+    <section class="result-section" id="resultSection" aria-live="polite">
+      <!-- Hero do resultado -->
+      <div class="result-hero" id="resultHero">
+        <span class="sign-symbol" id="resultSymbol">♈</span>
+        <div class="label">Seu signo é</div>
+        <h2 class="sign-name" id="resultName">Áries</h2>
+        <div class="period" id="resultPeriod">21 de março a 19 de abril</div>
+        <div class="meta-pills" id="resultMetaPills"></div>
+      </div>
+
+      <!-- Grid de informações -->
+      <div class="info-grid" id="infoGrid"></div>
+
+      <!-- Personalidade -->
+      <h3 class="section-title"><span>🧠</span> Personalidade</h3>
+      <div class="glass-card" id="personalityCard"></div>
+
+      <!-- Características -->
+      <h3 class="section-title"><span>📊</span> Características</h3>
+      <div class="glass-card">
+        <div class="traits-grid" id="traitsGrid"></div>
+      </div>
+
+      <!-- Pontos fortes e fracos -->
+      <div class="two-col" style="margin-top: 28px;">
+        <div class="list-card" id="strongPoints">
+          <h3>💪 Pontos fortes</h3>
+          <ul id="strongList"></ul>
+        </div>
+        <div class="list-card negative" id="weakPoints">
+          <h3>⚠️ Pontos de atenção</h3>
+          <ul id="weakList"></ul>
+        </div>
+      </div>
+
+      <!-- Amor -->
+      <h3 class="section-title"><span>❤️</span> No amor</h3>
+      <div class="glass-card" id="loveCard"></div>
+
+      <!-- Amizade -->
+      <h3 class="section-title"><span>🤝</span> Na amizade</h3>
+      <div class="glass-card" id="friendshipCard"></div>
+
+      <!-- Trabalho -->
+      <h3 class="section-title"><span>💼</span> Trabalho e carreira</h3>
+      <div class="glass-card" id="careerCard"></div>
+
+      <!-- Compatibilidade -->
+      <h3 class="section-title"><span>💫</span> Compatibilidade amorosa</h3>
+      <div class="glass-card">
+        <p style="color: var(--text-secondary); margin-bottom: 12px;">Combina muito com:</p>
+        <div class="compat-grid" id="compatGood"></div>
+        <p style="color: var(--text-secondary); margin: 16px 0 12px;">Pode exigir mais equilíbrio com:</p>
+        <div class="compat-grid" id="compatBad"></div>
+      </div>
+
+      <!-- Cores e curiosidades -->
+      <h3 class="section-title"><span>🎨</span> Cores, números e curiosidades</h3>
+      <div class="curiosity-grid" id="curiosityGrid"></div>
+      <div class="glass-card" style="margin-top: 16px;">
+        <h4 style="margin-bottom: 12px;">🌟 Você sabia?</h4>
+        <ul id="curiosityList" style="list-style: none; display: flex; flex-direction: column; gap: 10px;"></ul>
+      </div>
+
+      <!-- Horóscopo -->
+      <h3 class="section-title"><span>🔮</span> Horóscopo de hoje</h3>
+      <div class="horoscope-grid" id="horoscopeGrid"></div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">Conteúdo astrológico para entretenimento e reflexão pessoal.</p>
+
+      <!-- Mensagem personalizada -->
+      <h3 class="section-title"><span>✨</span> Uma mensagem para você</h3>
+      <div class="glass-card message-card">
+        <blockquote id="messageText">Confie mais no seu potencial. Nem sempre você precisa ter todas as respostas antes de começar.</blockquote>
+        <button class="btn-secondary" id="newMessageBtn">✨ Gerar outra mensagem</button>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="action-buttons">
+        <button class="btn-secondary" onclick="shareResult('whatsapp')" aria-label="Compartilhar no WhatsApp">📱 WhatsApp</button>
+        <button class="btn-secondary" onclick="shareResult('facebook')" aria-label="Compartilhar no Facebook">📘 Facebook</button>
+        <button class="btn-secondary" onclick="shareResult('twitter')" aria-label="Compartilhar no X/Twitter">🐦 X/Twitter</button>
+        <button class="btn-secondary" onclick="copyResult()" aria-label="Copiar resultado">📋 Copiar resultado</button>
+        <button class="btn-secondary" onclick="window.print()" aria-label="Imprimir resultado">🖨️ Imprimir meu resultado</button>
+      </div>
+    </section>
+
+    <!-- Ferramenta de compatibilidade entre dois signos -->
+    <section id="compatibilidade" style="margin-top: 50px;">
+      <h3 class="section-title"><span>💞</span> Descubra a compatibilidade entre dois signos</h3>
+      <div class="glass-card">
+        <div class="tool-row">
+          <div class="field">
+            <label for="sign1">Seu signo</label>
+            <select id="sign1" aria-label="Selecione seu signo">
+              <option value="">Selecione</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sign2">Signo da outra pessoa</label>
+            <select id="sign2" aria-label="Selecione o signo da outra pessoa">
+              <option value="">Selecione</option>
+            </select>
+          </div>
+          <button class="btn-primary" id="compatBtn" style="padding: 14px 32px; font-size: 1rem; white-space: nowrap;">Ver compatibilidade</button>
+        </div>
+        <div class="compat-result" id="compatResult">
+          <div class="compat-score" id="compatScore">0%</div>
+          <div class="compat-bars" id="compatBars"></div>
+          <p style="margin-top: 16px; color: var(--text-secondary); font-size: 0.95rem;" id="compatDescription"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lista dos 12 signos -->
+    <section id="os12" style="margin-top: 50px;">
+      <h3 class="section-title"><span>♈</span> Conheça os 12 signos</h3>
+      <div class="zodiac-list" id="zodiacList"></div>
+    </section>
+
+    <!-- Sobre astrologia -->
+    <section id="sobre" style="margin-top: 50px;">
+      <h3 class="section-title"><span>📖</span> Sobre astrologia</h3>
+      <div class="glass-card">
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+          A astrologia é um conjunto de tradições e crenças que atribuem significados à posição dos astros. 
+          Este site oferece conteúdo para entretenimento e reflexão pessoal. As descrições de personalidade, 
+          compatibilidade e horóscopos são baseadas em interpretações astrológicas tradicionais e não possuem 
+          comprovação científica. Aproveite como uma ferramenta de autoconhecimento e diversão.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-logo">✨ Meu Signo</div>
+      <p>Descubra mais sobre você através da astrologia.</p>
+      <ul class="footer-links">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#descobrir">Descobrir signo</a></li>
+        <li><a href="#os12">12 signos</a></li>
+        <li><a href="#compatibilidade">Compatibilidade</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+      </ul>
+      <p class="disclaimer">Conteúdo para entretenimento e reflexão pessoal. Astrologia não possui comprovação científica.</p>
+      <p style="margin-top: 12px;">&copy; <span id="currentYear"></span> Meu Signo. Todos os direitos reservados.</p>
+    </footer>
+
+  </main>
+
+  <!-- Botão voltar ao topo -->
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">↑</button>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Informações do signo">
+    <div class="modal-content" id="modalContent">
+      <button class="modal-close" id="modalClose" aria-label="Fechar modal">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // 1. DADOS COMPLETOS DOS 12 SIGNOS
+    // ============================================================
+    const zodiacData = {
+      aries: {
+        id: 'aries', name: 'Áries', symbol: '♈', start: '21/03', end: '19/04',
+        element: 'Fogo', modality: 'Cardinal', planet: 'Marte',
+        elementIcon: '🔥', modalityIcon: '🃏',
+        description: 'Áries é o primeiro signo do zodíaco, marcando o início da primavera no hemisfério norte. Regido por Marte, é conhecido pela energia, coragem e espírito de liderança.',
+        personality: 'Áries é pioneiro, entusiasta e cheio de iniciativa. Não tem medo de começar coisas novas e geralmente age por impulso. É direto, honesto e tem uma energia contagiante. Sua determinação é uma de suas maiores forças, mas também pode ser impaciente e impulsivo.',
+        strong: ['Determinado', 'Corajoso', 'Energético', 'Líder', 'Otimista', 'Independente'],
+        weak: ['Impulsividade', 'Impaciência', 'Teimosia', 'Agressividade'],
+        love: 'No amor, Áries é apaixonado e direto. Demonstra afeto com gestos ousados e presentes espontâneos. Procura um parceiro que acompanhe seu ritmo e não tenha medo de desafios. Lida com conflitos de forma aberta, mas pode ser impaciente.',
+        friendship: 'Como amigo, Áries é leal e está sempre pronto para uma aventura. Valoriza a sinceridade e a lealdade. Demonstra carinho sendo presente e defendendo quem ama. Procura amizades que compartilhem sua energia e entusiasmo.',
+        career: 'No trabalho, Áries se destaca em ambientes dinâmicos e competitivos. É um líder natural, mas pode ter dificuldade com tarefas repetitivas. Áreas como esportes, vendas, empreendedorismo e segurança combinam com seu perfil.',
+        compatibilityGood: ['sagittarius', 'leo', 'gemini'],
+        compatibilityBad: ['cancer', 'capricorn'],
+        color: 'Vermelho', number: '1', stone: 'Rubi', flower: 'Tulipa', day: 'Terça-feira',
+        traits: { coragem: 95, criatividade: 75, comunicacao: 82, determinacao: 90, sensibilidade: 55, lideranca: 95, organizacao: 60, romantismo: 80 },
+        curiosities: [
+          'Áries é o único signo que começa no equinócio de primavera no hemisfério norte.',
+          'Marte, seu regente, é o deus da guerra na mitologia romana.',
+          'O símbolo ♈ representa os chifres do carneiro.',
+          'Áries é conhecido por sua energia inesgotável.'
+        ],
+        horoscope: {
+          love: 'Paixão intensa no ar. Surpresas românticas podem acontecer.',
+          work: 'Bom momento para iniciar projetos ousados. Sua liderança será notada.',
+          money: 'Cuidado com gastos impulsivos. Planeje antes de comprar.',
+          wellness: 'Energia alta, mas evite exageros físicos. Alongue-se.'
+        },
+        messages: [
+          'Confie mais no seu potencial. Nem sempre você precisa ter todas as respostas antes de começar.',
+          'Sua coragem é sua maior força. Use-a com sabedoria.',
+          'O universo conspira a favor de quem age com determinação.',
+          'Não tenha medo de recomeçar. Você nasceu para liderar.'
+        ]
+      },
+      taurus: {
+        id: 'taurus', name: 'Touro', symbol: '♉', start: '20/04', end: '20/05',
+        element: 'Terra', modality: 'Fixo', planet: 'Vênus',
+        elementIcon: '🌍', modalityIcon: '🔒',
+        description: 'Touro é o segundo signo do zodíaco, regido por Vênus. É conhecido pela estabilidade, paciência e apreciação pelos prazeres da vida.',
+        personality: 'Touro é paciente, confiável e prático. Valoriza a segurança e o conforto. É teimoso, mas também extremamente leal. Tem um lado sensual e aprecia arte, boa comida e beleza. Sua determinação o ajuda a alcançar objetivos de longo prazo.',
+        strong: ['Confiável', 'Paciente', 'Prático', 'Leal', 'Sensual', 'Determinado'],
+        weak: ['Teimosia', 'Possessividade', 'Materialismo', 'Resistência a mudanças'],
+        love: 'No amor, Touro é romântico e leal. Demonstra afeto com gestos concretos, como presentes e carinho físico. Procura estabilidade e segurança. Lida com conflitos de forma calma, mas pode demorar a perdoar traições.',
+        friendship: 'Como amigo, Touro é aquele que você pode contar sempre. Valoriza a lealdade e a presença. Demonstra carinho com abraços e comidas gostosas. Procura amizades duradouras e sinceras.',
+        career: 'No trabalho, Touro é dedicado e confiável. Destaca-se em áreas que exigem paciência e persistência, como finanças, arte, culinária e construção civil.',
+        compatibilityGood: ['virgo', 'capricorn', 'cancer'],
+        compatibilityBad: ['leo', 'aquarius'],
+        color: 'Verde', number: '6', stone: 'Esmeralda', flower: 'Rosa', day: 'Sexta-feira',
+        traits: { coragem: 70, criatividade: 65, comunicacao: 60, determinacao: 88, sensibilidade: 75, lideranca: 65, organizacao: 85, romantismo: 85 },
+        curiosities: [
+          'Touro é regido por Vênus, a deusa do amor e da beleza.',
+          'O símbolo ♉ representa a cabeça e os chifres do touro.',
+          'Touro é conhecido por sua teimosia, mas também por sua lealdade.',
+          'É um dos signos mais estáveis do zodíaco.'
+        ],
+        horoscope: {
+          love: 'Momento de estabilidade e carinho. Aproveite para fortalecer laços.',
+          work: 'Persistência será recompensada. Continue focado nos seus objetivos.',
+          money: 'Boa fase para investimentos seguros. Evite riscos desnecessários.',
+          wellness: 'Cuide do corpo com alongamentos e alimentação equilibrada.'
+        },
+        messages: [
+          'A paciência é uma virtude que te leva longe. Continue no seu ritmo.',
+          'Você é mais forte do que imagina. Confie na sua intuição.',
+          'A estabilidade que você busca está dentro de você.',
+          'Não confunda teimosia com firmeza. Saiba a hora de ceder.'
+        ]
+      },
+      gemini: {
+        id: 'gemini', name: 'Gêmeos', symbol: '♊', start: '21/05', end: '20/06',
+        element: 'Ar', modality: 'Mutável', planet: 'Mercúrio',
+        elementIcon: '💨', modalityIcon: '🔄',
+        description: 'Gêmeos é o terceiro signo do zodíaco, regido por Mercúrio. É conhecido pela comunicação, curiosidade e adaptabilidade.',
+        personality: 'Gêmeos é comunicativo, curioso e versátil. Adora aprender coisas novas e conversar sobre tudo. É adaptável e consegue se dar bem em qualquer ambiente. Pode ser indeciso e disperso, mas sua inteligência e charme são marcantes.',
+        strong: ['Comunicativo', 'Curioso', 'Adaptável', 'Inteligente', 'Versátil', 'Sociável'],
+        weak: ['Indecisão', 'Dispersão', 'Superficialidade', 'Inquietação'],
+        love: 'No amor, Gêmeos é divertido e comunicativo. Demonstra afeto com conversas e surpresas. Procura um parceiro que estimule sua mente. Lida com conflitos dialogando, mas pode evitar confrontos profundos.',
+        friendship: 'Como amigo, Gêmeos é a alma da festa. Valoriza a inteligência e o humor. Demonstra carinho com mensagens e conversas. Procura amizades que tragam novidades e estímulo mental.',
+        career: 'No trabalho, Gêmeos se destaca em áreas de comunicação, marketing, jornalismo, ensino e tecnologia. Precisa de variedade para não se entediar.',
+        compatibilityGood: ['libra', 'aquarius', 'aries'],
+        compatibilityBad: ['virgo', 'pisces'],
+        color: 'Amarelo', number: '5', stone: 'Ágata', flower: 'Lavanda', day: 'Quarta-feira',
+        traits: { coragem: 65, criatividade: 90, comunicacao: 98, determinacao: 60, sensibilidade: 70, lideranca: 70, organizacao: 55, romantismo: 75 },
+        curiosities: [
+          'Gêmeos é regido por Mercúrio, o mensageiro dos deuses.',
+          'O símbolo ♊ representa os gêmeos Castor e Pólux da mitologia.',
+          'Gêmeos é conhecido por sua capacidade de se adaptar a qualquer situação.',
+          'É um dos signos mais sociáveis do zodíaco.'
+        ],
+        horoscope: {
+          love: 'Comunicação é a chave. Expresse seus sentimentos com clareza.',
+          work: 'Ideias brilhantes surgirão. Anote tudo para não perder o fio.',
+          money: 'Cuidado com gastos por impulso. Pense duas vezes antes de comprar.',
+          wellness: 'Sua mente precisa de descanso. Medite ou leia algo leve.'
+        },
+        messages: [
+          'Sua mente é um universo de possibilidades. Explore-o sem medo.',
+          'A comunicação é sua ponte para o mundo. Use-a com sabedoria.',
+          'Não tenha medo de mudar de ideia. A flexibilidade é sua aliada.',
+          'Você pode fazer várias coisas ao mesmo tempo, mas foque no essencial.'
+        ]
+      },
+      cancer: {
+        id: 'cancer', name: 'Câncer', symbol: '♋', start: '21/06', end: '22/07',
+        element: 'Água', modality: 'Cardinal', planet: 'Lua',
+        elementIcon: '💧', modalityIcon: '🃏',
+        description: 'Câncer é o quarto signo do zodíaco, regido pela Lua. É conhecido pela sensibilidade, intuição e proteção.',
+        personality: 'Câncer é sensível, intuitivo e protetor. Valoriza a família e o lar. É emotivo e pode ser reservado até se sentir seguro. Sua intuição é forte e sua memória afetiva é marcante. Cuidado com a tendência a se magoar facilmente.',
+        strong: ['Sensível', 'Intuitivo', 'Protetor', 'Leal', 'Cuidadoso', 'Caseiro'],
+        weak: ['Hipersensibilidade', 'Mau humor', 'Possessividade', 'Dificuldade em perdoar'],
+        love: 'No amor, Câncer é romântico e dedicado. Demonstra afeto com cuidado e atenção. Procura segurança emocional e um parceiro que valorize a família. Lida com conflitos se fechando, mas depois busca reconciliação.',
+        friendship: 'Como amigo, Câncer é acolhedor e leal. Valoriza a confiança e a intimidade. Demonstra carinho com abraços e comidas. Procura amizades profundas e duradouras.',
+        career: 'No trabalho, Câncer se destaca em áreas de cuidado, educação, saúde, artes e negócios familiares. Precisa de um ambiente acolhedor.',
+        compatibilityGood: ['scorpio', 'pisces', 'taurus'],
+        compatibilityBad: ['aries', 'libra'],
+        color: 'Azul', number: '2', stone: 'Pedra da Lua', flower: 'Lírio', day: 'Segunda-feira',
+        traits: { coragem: 60, criatividade: 80, comunicacao: 70, determinacao: 75, sensibilidade: 98, lideranca: 65, organizacao: 75, romantismo: 95 },
+        curiosities: [
+          'Câncer é regido pela Lua, que influencia as marés e as emoções.',
+          'O símbolo ♋ representa as garras do caranguejo.',
+          'Câncer é conhecido por sua intuição quase mágica.',
+          'É o signo mais ligado à família e ao lar.'
+        ],
+        horoscope: {
+          love: 'Emoções à flor da pele. Um abraço pode resolver muita coisa.',
+          work: 'Sua intuição será sua guia. Confie nos seus instintos.',
+          money: 'Evite decisões financeiras baseadas em emoção. Pense com calma.',
+          wellness: 'Cuide do seu mundo interior. Um banho relaxante ajuda.'
+        },
+        messages: [
+          'Sua sensibilidade é um dom. Não tenha medo de sentir.',
+          'O lar é onde seu coração está. Cultive seus laços afetivos.',
+          'Confie na sua intuição. Ela raramente erra.',
+          'Você é mais forte do que suas emoções. Respire fundo.'
+        ]
+      },
+      leo: {
+        id: 'leo', name: 'Leão', symbol: '♌', start: '23/07', end: '22/08',
+        element: 'Fogo', modality: 'Fixo', planet: 'Sol',
+        elementIcon: '🔥', modalityIcon: '🔒',
+        description: 'Leão é o quinto signo do zodíaco, regido pelo Sol. É conhecido pela liderança, criatividade e generosidade.',
+        personality: 'Leão é carismático, confiante e generoso. Adora ser o centro das atenções e tem um coração enorme. É criativo e expressivo. Pode ser arrogante e teimoso, mas sua lealdade e calor humano são inegáveis.',
+        strong: ['Carismático', 'Confiante', 'Generoso', 'Criativo', 'Leal', 'Líder'],
+        weak: ['Arrogância', 'Teimosia', 'Vaidade', 'Necessidade de atenção'],
+        love: 'No amor, Leão é apaixonado e dramático. Demonstra afeto com presentes e declarações grandiosas. Procura um parceiro que o admire e acompanhe seu brilho. Lida com conflitos com dignidade, mas pode ser orgulhoso.',
+        friendship: 'Como amigo, Leão é generoso e divertido. Valoriza a lealdade e a admiração. Demonstra carinho com festas e presentes. Procura amizades que o valorizem e compartilhem sua alegria.',
+        career: 'No trabalho, Leão se destaca em posições de liderança, artes, entretenimento e negócios. Precisa de reconhecimento para brilhar.',
+        compatibilityGood: ['aries', 'sagittarius', 'libra'],
+        compatibilityBad: ['taurus', 'scorpio'],
+        color: 'Dourado', number: '3', stone: 'Diamante', flower: 'Girassol', day: 'Domingo',
+        traits: { coragem: 90, criatividade: 95, comunicacao: 88, determinacao: 85, sensibilidade: 70, lideranca: 98, organizacao: 70, romantismo: 90 },
+        curiosities: [
+          'Leão é regido pelo Sol, a estrela que ilumina o sistema solar.',
+          'O símbolo ♌ representa a juba do leão.',
+          'Leão é conhecido por sua generosidade e lealdade.',
+          'É um dos signos mais criativos do zodíaco.'
+        ],
+        horoscope: {
+          love: 'Seu charme está em alta. Aproveite para conquistar quem deseja.',
+          work: 'Reconhecimento pode chegar. Mostre seu valor sem medo.',
+          money: 'Cuidado com gastos para impressionar. Invista em você mesmo.',
+          wellness: 'Sua energia é contagiante. Canalize-a para exercícios.'
+        },
+        messages: [
+          'Você nasceu para brilhar. Não tenha medo de ocupar seu espaço.',
+          'Sua generosidade inspira pessoas. Continue espalhando luz.',
+          'O Sol está do seu lado. Confie no seu poder pessoal.',
+          'Liderança é dom, mas ouvir também é sabedoria.'
+        ]
+      },
+      virgo: {
+        id: 'virgo', name: 'Virgem', symbol: '♍', start: '23/08', end: '22/09',
+        element: 'Terra', modality: 'Mutável', planet: 'Mercúrio',
+        elementIcon: '🌍', modalityIcon: '🔄',
+        description: 'Virgem é o sexto signo do zodíaco, regido por Mercúrio. É conhecido pela análise, perfeccionismo e serviço.',
+        personality: 'Virgem é analítica, prática e detalhista. Adora ajudar e tem um olhar crítico apurado. É organizada e trabalhadora. Pode ser perfeccionista e autocrítica em excesso. Sua inteligência prática é uma de suas maiores forças.',
+        strong: ['Analítica', 'Prática', 'Detalhista', 'Trabalhadora', 'Organizada', 'Prestativa'],
+        weak: ['Perfeccionismo', 'Autocrítica', 'Ansiedade', 'Excesso de crítica'],
+        love: 'No amor, Virgem é dedicada e atenciosa. Demonstra afeto com atos de serviço e cuidado. Procura um parceiro que valorize a estabilidade e a inteligência. Lida com conflitos analisando a situação, mas pode ser crítica.',
+        friendship: 'Como amigo, Virgem é leal e prestativa. Valoriza a sinceridade e a utilidade. Demonstra carinho com ajuda prática e conselhos. Procura amizades verdadeiras e maduras.',
+        career: 'No trabalho, Virgem se destaca em áreas que exigem análise, organização e precisão, como saúde, pesquisa, contabilidade e edição.',
+        compatibilityGood: ['taurus', 'capricorn', 'cancer'],
+        compatibilityBad: ['gemini', 'sagittarius'],
+        color: 'Verde', number: '5', stone: 'Safira', flower: 'Margarida', day: 'Quarta-feira',
+        traits: { coragem: 65, criatividade: 70, comunicacao: 75, determinacao: 80, sensibilidade: 80, lideranca: 60, organizacao: 98, romantismo: 70 },
+        curiosities: [
+          'Virgem é regida por Mercúrio, o planeta da comunicação e análise.',
+          'O símbolo ♍ representa a deusa da colheita com uma espiga de trigo.',
+          'Virgem é conhecida por sua atenção aos detalhes.',
+          'É um dos signos mais dedicados ao trabalho e ao serviço.'
+        ],
+        horoscope: {
+          love: 'Pequenos gestos farão diferença. Preste atenção nos detalhes.',
+          work: 'Sua organização será notada. Bom momento para planejar.',
+          money: 'Revise suas contas. Um ajuste pode trazer economia.',
+          wellness: 'Cuide da ansiedade com respiração e pausas.'
+        },
+        messages: [
+          'A perfeição não existe, mas sua busca por excelência é admirável.',
+          'Você é mais do que suficiente. Aceite suas imperfeições.',
+          'Sua capacidade de ajudar é um dom. Não se anule por isso.',
+          'Respire. Nem tudo precisa estar sob controle.'
+        ]
+      },
+      libra: {
+        id: 'libra', name: 'Libra', symbol: '♎', start: '23/09', end: '22/10',
+        element: 'Ar', modality: 'Cardinal', planet: 'Vênus',
+        elementIcon: '💨', modalityIcon: '🃏',
+        description: 'Libra é o sétimo signo do zodíaco, regido por Vênus. É conhecido pelo equilíbrio, diplomacia e busca pela harmonia.',
+        personality: 'Libra é diplomata, sociável e busca harmonia. Tem um forte senso de justiça e adora estar acompanhada. É charmosa e pacífica. Pode ser indecisa e evitar conflitos a todo custo. Sua elegância e senso estético são marcantes.',
+        strong: ['Diplomata', 'Sociável', 'Justa', 'Charmosa', 'Pacífica', 'Elegante'],
+        weak: ['Indecisão', 'Evita conflitos', 'Dependência de aprovação', 'Superficialidade'],
+        love: 'No amor, Libra é romântica e dedicada. Demonstra afeto com gestos elegantes e atenção. Procura um parceiro que traga equilíbrio e companheirismo. Lida com conflitos buscando sempre a paz, mas pode evitar discussões necessárias.',
+        friendship: 'Como amigo, Libra é encantadora e leal. Valoriza a harmonia e a companhia. Demonstra carinho com elogios e presença. Procura amizades equilibradas e sinceras.',
+        career: 'No trabalho, Libra se destaca em áreas de relações públicas, direito, arte, moda e mediação. Precisa de um ambiente harmonioso.',
+        compatibilityGood: ['gemini', 'aquarius', 'leo'],
+        compatibilityBad: ['cancer', 'capricorn'],
+        color: 'Rosa', number: '7', stone: 'Opala', flower: 'Orquídea', day: 'Sexta-feira',
+        traits: { coragem: 60, criatividade: 85, comunicacao: 90, determinacao: 65, sensibilidade: 85, lideranca: 70, organizacao: 75, romantismo: 95 },
+        curiosities: [
+          'Libra é regida por Vênus, a deusa do amor e da beleza.',
+          'O símbolo ♎ representa a balança da justiça.',
+          'Libra é conhecida por sua diplomacia e charme.',
+          'É o único signo representado por um objeto inanimado.'
+        ],
+        horoscope: {
+          love: 'Harmonia no ar. Bom momento para conversas sinceras.',
+          work: 'Parcerias podem render frutos. Saiba negociar.',
+          money: 'Evite compras por impulso. Equilibre seu orçamento.',
+          wellness: 'Busque atividades que tragam paz, como ioga.'
+        },
+        messages: [
+          'A paz que você busca também começa dentro de você.',
+          'Sua capacidade de mediar conflitos é um dom. Use-a bem.',
+          'Não tenha medo de dizer não. O equilíbrio é essencial.',
+          'Você merece relações que te tragam harmonia.'
+        ]
+      },
+      scorpio: {
+        id: 'scorpio', name: 'Escorpião', symbol: '♏', start: '23/10', end: '21/11',
+        element: 'Água', modality: 'Fixo', planet: 'Plutão',
+        elementIcon: '💧', modalityIcon: '🔒',
+        description: 'Escorpião é o oitavo signo do zodíaco, regido por Plutão. É conhecido pela intensidade, transformação e poder.',
+        personality: 'Escorpião é intenso, profundo e misterioso. Tem uma força interior poderosa e é extremamente leal. É estratégico e não tem medo de enfrentar verdades. Pode ser ciumento e possessivo, mas sua paixão é incomparável.',
+        strong: ['Intenso', 'Leal', 'Estratégico', 'Corajoso', 'Determinado', 'Magnético'],
+        weak: ['Ciúmes', 'Possessividade', 'Vingança', 'Desconfiança'],
+        love: 'No amor, Escorpião é intenso e possessivo. Demonstra afeto com entrega total e paixão. Procura um parceiro que suporte sua profundidade. Lida com conflitos de forma intensa, mas busca a reconciliação.',
+        friendship: 'Como amigo, Escorpião é leal e protetor. Valoriza a confiança e a verdade. Demonstra carinho com segredos compartilhados e apoio incondicional. Procura amizades profundas e verdadeiras.',
+        career: 'No trabalho, Escorpião se destaca em áreas de investigação, psicologia, medicina, finanças e estratégia. Precisa de desafios.',
+        compatibilityGood: ['cancer', 'pisces', 'capricorn'],
+        compatibilityBad: ['leo', 'aquarius'],
+        color: 'Vinho', number: '8', stone: 'Topázio', flower: 'Cravina', day: 'Terça-feira',
+        traits: { coragem: 90, criatividade: 80, comunicacao: 65, determinacao: 95, sensibilidade: 85, lideranca: 85, organizacao: 80, romantismo: 85 },
+        curiosities: [
+          'Escorpião é regido por Plutão, o deus da transformação.',
+          'O símbolo ♏ representa a cauda do escorpião com seu ferrão.',
+          'Escorpião é conhecido por sua capacidade de renascer das cinzas.',
+          'É um dos signos mais intensos e magnéticos do zodíaco.'
+        ],
+        horoscope: {
+          love: 'Paixão intensa. Um segredo pode ser revelado.',
+          work: 'Sua estratégia será sua arma. Use-a com sabedoria.',
+          money: 'Bom momento para investigar investimentos.',
+          wellness: 'Cuide das emoções. Meditação ajuda a transmutar.'
+        },
+        messages: [
+          'Sua intensidade é um poder. Não tenha medo de mergulhar fundo.',
+          'A transformação é sua aliada. Deixe o velho ir.',
+          'Você é mais forte do que qualquer desafio. Confie.',
+          'A vingança não te levará a lugar nenhum. Escolha a paz.'
+        ]
+      },
+      sagittarius: {
+        id: 'sagittarius', name: 'Sagitário', symbol: '♐', start: '22/11', end: '21/12',
+        element: 'Fogo', modality: 'Mutável', planet: 'Júpiter',
+        elementIcon: '🔥', modalityIcon: '🔄',
+        description: 'Sagitário é o nono signo do zodíaco, regido por Júpiter. É conhecido pela aventura, otimismo e busca por liberdade.',
+        personality: 'Sagitário é aventureiro, otimista e filosófico. Adora viajar e expandir horizontes. É sincero e direto. Pode ser irresponsável e inquieto, mas seu entusiasmo é contagiante. Busca sempre a verdade e a liberdade.',
+        strong: ['Aventureiro', 'Otimista', 'Sincero', 'Filosófico', 'Entusiasta', 'Livre'],
+        weak: ['Irresponsabilidade', 'Impulsividade', 'Falta de compromisso', 'Exagero'],
+        love: 'No amor, Sagitário é apaixonado e livre. Demonstra afeto com aventuras e conversas profundas. Procura um parceiro que respeite sua liberdade. Lida com conflitos de forma direta, mas pode evitar compromissos sérios.',
+        friendship: 'Como amigo, Sagitário é divertido e leal. Valoriza a liberdade e a sinceridade. Demonstra carinho com convites para aventuras. Procura amizades que expandam seus horizontes.',
+        career: 'No trabalho, Sagitário se destaca em áreas de ensino, viagens, filosofia, esportes e comércio exterior. Precisa de liberdade para brilhar.',
+        compatibilityGood: ['aries', 'leo', 'aquarius'],
+        compatibilityBad: ['virgo', 'pisces'],
+        color: 'Roxo', number: '9', stone: 'Turquesa', flower: 'Cravo', day: 'Quinta-feira',
+        traits: { coragem: 85, criatividade: 85, comunicacao: 90, determinacao: 75, sensibilidade: 65, lideranca: 80, organizacao: 55, romantismo: 70 },
+        curiosities: [
+          'Sagitário é regido por Júpiter, o deus do trovão e da expansão.',
+          'O símbolo ♐ representa uma flecha apontada para o céu.',
+          'Sagitário é conhecido por sua sede de conhecimento e aventura.',
+          'É o signo mais viajante do zodíaco.'
+        ],
+        horoscope: {
+          love: 'Aventura a dois pode apimentar a relação.',
+          work: 'Bom momento para expandir horizontes profissionais.',
+          money: 'Cuidado com gastos em viagens. Planeje-se.',
+          wellness: 'Exercícios ao ar livre serão revigorantes.'
+        },
+        messages: [
+          'A liberdade é essencial, mas não fuja de quem te ama.',
+          'Sua busca pela verdade é inspiradora. Continue.',
+          'O mundo é seu. Explore-o com sabedoria.',
+          'Otimismo é seu combustível. Use-o para realizar.'
+        ]
+      },
+      capricorn: {
+        id: 'capricorn', name: 'Capricórnio', symbol: '♑', start: '22/12', end: '19/01',
+        element: 'Terra', modality: 'Cardinal', planet: 'Saturno',
+        elementIcon: '🌍', modalityIcon: '🃏',
+        description: 'Capricórnio é o décimo signo do zodíaco, regido por Saturno. É conhecido pela disciplina, ambição e responsabilidade.',
+        personality: 'Capricórnio é disciplinado, ambicioso e responsável. Tem uma determinação inabalável e foco nos objetivos. É prático e sério. Pode ser frio e calculista, mas sua lealdade e integridade são admiráveis.',
+        strong: ['Disciplinado', 'Ambicioso', 'Responsável', 'Prático', 'Determinado', 'Leal'],
+        weak: ['Frieza', 'Pessimismo', 'Teimosia', 'Excesso de trabalho'],
+        love: 'No amor, Capricórnio é leal e comprometido. Demonstra afeto com atos de cuidado e provisão. Procura um parceiro que valorize a estabilidade. Lida com conflitos de forma racional, mas pode ser reservado emocionalmente.',
+        friendship: 'Como amigo, Capricórnio é confiável e leal. Valoriza a maturidade e a sinceridade. Demonstra carinho com conselhos e apoio prático. Procura amizades duradouras e verdadeiras.',
+        career: 'No trabalho, Capricórnio se destaca em áreas de gestão, finanças, engenharia, direito e política. É um líder nato e estrategista.',
+        compatibilityGood: ['taurus', 'virgo', 'scorpio'],
+        compatibilityBad: ['aries', 'libra'],
+        color: 'Cinza', number: '10', stone: 'Granada', flower: 'Crisântemo', day: 'Sábado',
+        traits: { coragem: 80, criatividade: 60, comunicacao: 65, determinacao: 98, sensibilidade: 60, lideranca: 90, organizacao: 95, romantismo: 65 },
+        curiosities: [
+          'Capricórnio é regido por Saturno, o deus do tempo e da disciplina.',
+          'O símbolo ♑ representa a cabra com cauda de peixe.',
+          'Capricórnio é conhecido por sua ambição e determinação.',
+          'É o signo mais maduro e responsável do zodíaco.'
+        ],
+        horoscope: {
+          love: 'Momento de amadurecer decisões afetivas.',
+          work: 'Sua disciplina será recompensada. Continue firme.',
+          money: 'Bom momento para investimentos de longo prazo.',
+          wellness: 'Cuide das costas e da postura. Alongue-se.'
+        },
+        messages: [
+          'Sua determinação é inspiradora. Não desista dos seus sonhos.',
+          'O sucesso é construído com paciência. Continue no caminho.',
+          'Permita-se sentir. Não precisa ser forte o tempo todo.',
+          'Você é capaz de realizar tudo o que planeja. Confie.'
+        ]
+      },
+      aquarius: {
+        id: 'aquarius', name: 'Aquário', symbol: '♒', start: '20/01', end: '18/02',
+        element: 'Ar', modality: 'Fixo', planet: 'Urano',
+        elementIcon: '💨', modalityIcon: '🔒',
+        description: 'Aquário é o décimo primeiro signo do zodíaco, regido por Urano. É conhecido pela originalidade, humanitarismo e inovação.',
+        personality: 'Aquário é original, independente e humanitário. Tem ideias revolucionárias e adora inovar. É sociável, mas precisa de espaço. Pode ser excêntrico e distante, mas sua visão de futuro é única.',
+        strong: ['Original', 'Independente', 'Humanitário', 'Inovador', 'Inteligente', 'Visionário'],
+        weak: ['Distante', 'Teimosia', 'Excentricidade', 'Frieza emocional'],
+        love: 'No amor, Aquário é original e livre. Demonstra afeto com ideias e conversas profundas. Procura um parceiro que respeite sua individualidade. Lida com conflitos de forma racional, mas pode ser distante emocionalmente.',
+        friendship: 'Como amigo, Aquário é leal e divertido. Valoriza a liberdade e a inteligência. Demonstra carinho com ideias e projetos em grupo. Procura amizades que compartilhem seus ideais.',
+        career: 'No trabalho, Aquário se destaca em áreas de tecnologia, ciência, invenção, causas sociais e arte. Precisa de liberdade criativa.',
+        compatibilityGood: ['gemini', 'libra', 'sagittarius'],
+        compatibilityBad: ['taurus', 'scorpio'],
+        color: 'Azul', number: '11', stone: 'Ametista', flower: 'Violeta', day: 'Sábado',
+        traits: { coragem: 75, criatividade: 95, comunicacao: 85, determinacao: 70, sensibilidade: 65, lideranca: 75, organizacao: 70, romantismo: 60 },
+        curiosities: [
+          'Aquário é regido por Urano, o deus do céu e das inovações.',
+          'O símbolo ♒ representa ondas de água, mas é um signo de Ar.',
+          'Aquário é conhecido por sua originalidade e pensamento à frente do tempo.',
+          'É o signo mais humanitário do zodíaco.'
+        ],
+        horoscope: {
+          love: 'Originalidade pode surpreender. Seja você mesmo.',
+          work: 'Ideias inovadoras serão bem-vindas. Compartilhe.',
+          money: 'Bom momento para investir em tecnologia.',
+          wellness: 'Cuide da mente com leituras e debates.'
+        },
+        messages: [
+          'Sua originalidade é um presente. Não tenha medo de ser diferente.',
+          'O futuro pertence a quem ousa inovar. Continue.',
+          'Você não precisa se encaixar. Crie seu próprio caminho.',
+          'Humanidade é sua causa. Mas cuide também de você.'
+        ]
+      },
+      pisces: {
+        id: 'pisces', name: 'Peixes', symbol: '♓', start: '19/02', end: '20/03',
+        element: 'Água', modality: 'Mutável', planet: 'Netuno',
+        elementIcon: '💧', modalityIcon: '🔄',
+        description: 'Peixes é o décimo segundo signo do zodíaco, regido por Netuno. É conhecido pela sensibilidade, intuição e compaixão.',
+        personality: 'Peixes é sensível, intuitivo e compassivo. Tem uma imaginação fértil e uma conexão profunda com o mundo espiritual. É sonhador e adaptável. Pode ser iludido e escapista, mas sua empatia é infinita.',
+        strong: ['Sensível', 'Intuitivo', 'Compassivo', 'Artístico', 'Sonhador', 'Empático'],
+        weak: ['Ilusão', 'Escapismo', 'Indecisão', 'Falta de limites'],
+        love: 'No amor, Peixes é romântico e idealista. Demonstra afeto com poesia e cuidado. Procura um parceiro que entenda sua sensibilidade. Lida com conflitos se retirando, mas perdoa com facilidade.',
+        friendship: 'Como amigo, Peixes é acolhedor e leal. Valoriza a conexão emocional e a arte. Demonstra carinho com gestos poéticos. Procura amizades profundas e compreensivas.',
+        career: 'No trabalho, Peixes se destaca em áreas artísticas, terapêuticas, humanitárias e espirituais. Precisa de um ambiente que valorize a criatividade.',
+        compatibilityGood: ['cancer', 'scorpio', 'capricorn'],
+        compatibilityBad: ['gemini', 'sagittarius'],
+        color: 'Azul-claro', number: '12', stone: 'Água-marinha', flower: 'Nenúfar', day: 'Quinta-feira',
+        traits: { coragem: 55, criatividade: 98, comunicacao: 70, determinacao: 60, sensibilidade: 99, lideranca: 55, organizacao: 50, romantismo: 98 },
+        curiosities: [
+          'Peixes é regido por Netuno, o deus dos mares e dos sonhos.',
+          'O símbolo ♓ representa dois peixes nadando em direções opostas.',
+          'Peixes é conhecido por sua empatia e conexão espiritual.',
+          'É o signo mais sonhador e artístico do zodíaco.'
+        ],
+        horoscope: {
+          love: 'Momento de sonhos e romance. Aproveite a inspiração.',
+          work: 'Sua criatividade estará aflorada. Canalize para projetos.',
+          money: 'Evite decisões financeiras baseadas em ilusões.',
+          wellness: 'Cuide da mente com meditação e arte.'
+        },
+        messages: [
+          'Sua sensibilidade é uma ponte para o mundo invisível. Honre-a.',
+          'Sonhar é essencial, mas não esqueça de viver o presente.',
+          'Você sente o que os outros não sentem. Isso é um dom.',
+          'A compaixão é sua maior força. Mas cuide de você também.'
+        ]
+      }
+    };
+
+    // ============================================================
+    // 2. FUNÇÕES UTILITÁRIAS
+    // ============================================================
+
+    /** Retorna a data de hoje sem horas */
+    function getToday() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return today;
+    }
+
+    /** Formata data para exibição */
+    function formatDate(date) {
+      return date.toLocaleDateString('pt-BR');
+    }
+
+    /** Retorna o signo com base no dia e mês (1-12) */
+    function getZodiacSign(day, month) {
+      // month: 1 = janeiro, 12 = dezembro
+      if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'aries';
+      if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'taurus';
+      if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'gemini';
+      if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'cancer';
+      if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'leo';
+      if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'virgo';
+      if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'libra';
+      if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'scorpio';
+      if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'sagittarius';
+      if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return 'capricorn';
+      if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'aquarius';
+      if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'pisces';
+      return 'aries'; // fallback
+    }
+
+    /** Retorna o signo com base em uma data (Date) */
+    function getSignFromDate(date) {
+      return getZodiacSign(date.getDate(), date.getMonth() + 1);
+    }
+
+    // ============================================================
+    // 3. CRIAÇÃO DAS ESTRELAS
+    // ============================================================
+    function createStars() {
+      const container = document.getElementById('starsContainer');
+      if (!container) return;
+      const count = window.innerWidth < 600 ? 80 : 160;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        const size = Math.random() * 2.5 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        star.style.animationDelay = (Math.random() * 4) + 's';
+        star.style.opacity = Math.random() * 0.6 + 0.2;
+        container.appendChild(star);
+      }
+    }
+
+    // ============================================================
+    // 4. RENDERIZAÇÃO DOS SELECTS E LISTA DE SIGNOS
+    // ============================================================
+    function populateSelects() {
+      const select1 = document.getElementById('sign1');
+      const select2 = document.getElementById('sign2');
+      if (!select1 || !select2) return;
+      const signs = Object.values(zodiacData);
+      signs.forEach(sign => {
+        const opt1 = document.createElement('option');
+        opt1.value = sign.id;
+        opt1.textContent = `${sign.symbol} ${sign.name}`;
+        select1.appendChild(opt1);
+
+        const opt2 = document.createElement('option');
+        opt2.value = sign.id;
+        opt2.textContent = `${sign.symbol} ${sign.name}`;
+        select2.appendChild(opt2);
+      });
+    }
+
+    function renderZodiacList() {
+      const container = document.getElementById('zodiacList');
+      if (!container) return;
+      container.innerHTML = '';
+      Object.values(zodiacData).forEach(sign => {
+        const card = document.createElement('div');
+        card.className = 'zodiac-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `Ver informações de ${sign.name}`);
+        card.innerHTML = `
+          <span class="sym">${sign.symbol}</span>
+          <div class="name">${sign.name}</div>
+          <div class="dates">${sign.start} - ${sign.end}</div>
+          <div class="elem">${sign.elementIcon} ${sign.element}</div>
+        `;
+        card.addEventListener('click', () => openZodiacModal(sign.id));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openZodiacModal(sign.id);
+          }
+        });
+        container.appendChild(card);
+      });
+    }
+
+    // ============================================================
+    // 5. MODAL
+    // ============================================================
+    function openZodiacModal(signId) {
+      const sign = zodiacData[signId];
+      if (!sign) return;
+      const modalBody = document.getElementById('modalBody');
+      const overlay = document.getElementById('modalOverlay');
+      if (!modalBody || !overlay) return;
+
+      const compatGood = sign.compatibilityGood.map(id => zodiacData[id]).filter(Boolean);
+      const compatBad = sign.compatibilityBad.map(id => zodiacData[id]).filter(Boolean);
+
+      modalBody.innerHTML = `
+        <h2><span class="modal-symbol">${sign.symbol}</span> ${sign.name}</h2>
+        <p class="modal-period">${sign.start} a ${sign.end}</p>
+        <p class="modal-desc">${sign.description}</p>
+        <div class="modal-meta">
+          <div class="item"><div class="lbl">Elemento</div><div class="val">${sign.elementIcon} ${sign.element}</div></div>
+          <div class="item"><div class="lbl">Modalidade</div><div class="val">${sign.modalityIcon} ${sign.modality}</div></div>
+          <div class="item"><div class="lbl">Planeta</div><div class="val">🪐 ${sign.planet}</div></div>
+          <div class="item"><div class="lbl">Número</div><div class="val">🔢 ${sign.number}</div></div>
+        </div>
+        <h4 style="margin: 16px 0 8px;">Características</h4>
+        <div class="modal-traits">
+          ${sign.strong.map(s => `<span class="trait-badge">${s}</span>`).join('')}
+        </div>
+        <h4 style="margin: 16px 0 8px;">Compatibilidade</h4>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Combina com: ${compatGood.map(s => `${s.symbol} ${s.name}`).join(', ') || '—'}</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Pode exigir equilíbrio: ${compatBad.map(s => `${s.symbol} ${s.name}`).join(', ') || '—'}</p>
+      `;
+
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeZodiacModal() {
+      const overlay = document.getElementById('modalOverlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // ============================================================
+    // 6. RENDERIZAÇÃO DO RESULTADO
+    // ============================================================
+    function renderZodiacData(signId) {
+      const sign = zodiacData[signId];
+      if (!sign) return;
+
+      // Hero
+      document.getElementById('resultSymbol').textContent = sign.symbol;
+      document.getElementById('resultName').textContent = sign.name;
+      document.getElementById('resultPeriod').textContent = `${sign.start} a ${sign.end}`;
+
+      const pills = document.getElementById('resultMetaPills');
+      if (pills) {
+        pills.innerHTML = `
+          <div class="pill">${sign.elementIcon} ${sign.element}</div>
+          <div class="pill">${sign.modalityIcon} ${sign.modality}</div>
+          <div class="pill">🪐 ${sign.planet}</div>
+        `;
+      }
+
+      // Grid de informações
+      const infoGrid = document.getElementById('infoGrid');
+      if (infoGrid) {
+        infoGrid.innerHTML = `
+          <div class="info-card"><span class="icon">${sign.elementIcon}</span><div class="label">Elemento</div><div class="value">${sign.element}</div></div>
+          <div class="info-card"><span class="icon">${sign.modalityIcon}</span><div class="label">Modalidade</div><div class="value">${sign.modality}</div></div>
+          <div class="info-card"><span class="icon">🪐</span><div class="label">Planeta</div><div class="value">${sign.planet}</div></div>
+          <div class="info-card"><span class="icon">${sign.symbol}</span><div class="label">Símbolo</div><div class="value">${sign.name}</div></div>
+          <div class="info-card"><span class="icon">📅</span><div class="label">Período</div><div class="value">${sign.start} - ${sign.end}</div></div>
+        `;
+      }
+
+      // Personalidade
+      const personalityCard = document.getElementById('personalityCard');
+      if (personalityCard) {
+        personalityCard.innerHTML = `<p style="color: var(--text-secondary); line-height: 1.8;">${sign.personality}</p>`;
+      }
+
+      // Características (barras animadas)
+      const traitsGrid = document.getElementById('traitsGrid');
+      if (traitsGrid) {
+        const traits = sign.traits;
+        const labels = {
+          coragem: 'Coragem',
+          criatividade: 'Criatividade',
+          comunicacao: 'Comunicação',
+          determinacao: 'Determinação',
+          sensibilidade: 'Sensibilidade',
+          lideranca: 'Liderança',
+          organizacao: 'Organização',
+          romantismo: 'Romantismo'
+        };
+        traitsGrid.innerHTML = Object.entries(traits).map(([key, val]) => `
+          <div class="trait-item">
+            <div class="trait-header"><span>${labels[key] || key}</span><span>${val}%</span></div>
+            <div class="trait-bar"><div class="trait-fill" data-width="${val}"></div></div>
+          </div>
+        `).join('');
+        // Animar barras após render
+        setTimeout(() => {
+          document.querySelectorAll('.trait-fill').forEach(el => {
+            const w = el.dataset.width;
+            if (w) el.style.width = w + '%';
+          });
+        }, 100);
+      }
+
+      // Pontos fortes e fracos
+      const strongList = document.getElementById('strongList');
+      const weakList = document.getElementById('weakList');
+      if (strongList) strongList.innerHTML = sign.strong.map(s => `<li>${s}</li>`).join('');
+      if (weakList) weakList.innerHTML = sign.weak.map(s => `<li>${s}</li>`).join('');
+
+      // Amor
+      const loveCard = document.getElementById('loveCard');
+      if (loveCard) loveCard.innerHTML = `<p style="color: var(--text-secondary); line-height: 1.8;">${sign.love}</p>`;
+
+      // Amizade
+      const friendshipCard = document.getElementById('friendshipCard');
+      if (friendshipCard) friendshipCard.innerHTML = `<p style="color: var(--text-secondary); line-height: 1.8;">${sign.friendship}</p>`;
+
+      // Trabalho
+      const careerCard = document.getElementById('careerCard');
+      if (careerCard) careerCard.innerHTML = `<p style="color: var(--text-secondary); line-height: 1.8;">${sign.career}</p>`;
+
+      // Compatibilidade
+      const compatGood = document.getElementById('compatGood');
+      const compatBad = document.getElementById('compatBad');
+      if (compatGood) {
+        compatGood.innerHTML = sign.compatibilityGood.map(id => {
+          const s = zodiacData[id];
+          return s ? `<div class="compat-badge"><span class="sym">${s.symbol}</span> ${s.name}</div>` : '';
+        }).join('');
+      }
+      if (compatBad) {
+        compatBad.innerHTML = sign.compatibilityBad.map(id => {
+          const s = zodiacData[id];
+          return s ? `<div class="compat-badge"><span class="sym">${s.symbol}</span> ${s.name}</div>` : '';
+        }).join('');
+      }
+
+      // Curiosidades
+      const curiosityGrid = document.getElementById('curiosityGrid');
+      if (curiosityGrid) {
+        curiosityGrid.innerHTML = `
+          <div class="curiosity-item"><span class="icon">🎨</span><div class="label">Cor</div><div class="val">${sign.color}</div></div>
+          <div class="curiosity-item"><span class="icon">🔢</span><div class="label">Número</div><div class="val">${sign.number}</div></div>
+          <div class="curiosity-item"><span class="icon">💎</span><div class="label">Pedra</div><div class="val">${sign.stone}</div></div>
+          <div class="curiosity-item"><span class="icon">🌸</span><div class="label">Flor</div><div class="val">${sign.flower}</div></div>
+          <div class="curiosity-item"><span class="icon">📅</span><div class="label">Dia</div><div class="val">${sign.day}</div></div>
+        `;
+      }
+
+      const curiosityList = document.getElementById('curiosityList');
+      if (curiosityList) {
+        curiosityList.innerHTML = sign.curiosities.map(c => `<li style="display: flex; gap: 10px; color: var(--text-secondary);"><span style="color: var(--gold);">✦</span> ${c}</li>`).join('');
+      }
+
+      // Horóscopo
+      const horoscopeGrid = document.getElementById('horoscopeGrid');
+      if (horoscopeGrid) {
+        const h = sign.horoscope;
+        horoscopeGrid.innerHTML = `
+          <div class="horoscope-card"><div class="cat">❤️ Amor</div><p>${h.love}</p></div>
+          <div class="horoscope-card"><div class="cat">💼 Trabalho</div><p>${h.work}</p></div>
+          <div class="horoscope-card"><div class="cat">💰 Finanças</div><p>${h.money}</p></div>
+          <div class="horoscope-card"><div class="cat">🧘 Bem-estar</div><p>${h.wellness}</p></div>
+        `;
+      }
+
+      // Mensagem personalizada
+      generateMessage(signId);
+
+      // Salvar signo atual para compartilhamento
+      window.currentSignId = signId;
+    }
+
+    // ============================================================
+    // 7. GERAÇÃO DE MENSAGEM ALEATÓRIA
+    // ============================================================
+    function generateMessage(signId) {
+      const sign = zodiacData[signId];
+      if (!sign) return;
+      const messages = sign.messages;
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      const el = document.getElementById('messageText');
+      if (el) el.textContent = msg;
+    }
+
+    // ============================================================
+    // 8. COMPATIBILIDADE ENTRE DOIS SIGNOS
+    // ============================================================
+    function calculateCompatibility(sign1Id, sign2Id) {
+      const s1 = zodiacData[sign1Id];
+      const s2 = zodiacData[sign2Id];
+      if (!s1 || !s2) return null;
+
+      // Lógica simplificada baseada em elementos e compatibilidades
+      let base = 50;
+      // Elementos iguais ou complementares
+      const elemMap = { 'Fogo': 'Ar', 'Ar': 'Fogo', 'Terra': 'Água', 'Água': 'Terra' };
+      if (s1.element === s2.element) base += 20;
+      else if (elemMap[s1.element] === s2.element) base += 15;
+
+      // Compatibilidade listada
+      if (s1.compatibilityGood.includes(sign2Id)) base += 25;
+      if (s1.compatibilityBad.includes(sign2Id)) base -= 20;
+
+      // Ajuste final
+      base = Math.max(10, Math.min(98, base));
+
+      // Métricas
+      const love = Math.min(100, base + Math.floor(Math.random() * 10) - 5);
+      const communication = Math.min(100, base + Math.floor(Math.random() * 15) - 5);
+      const trust = Math.min(100, base + Math.floor(Math.random() * 10) - 5);
+      const chemistry = Math.min(100, base + Math.floor(Math.random() * 15) - 5);
+      const friendship = Math.min(100, base + Math.floor(Math.random() * 10) - 5);
+
+      return {
+        score: Math.round(base),
+        love: Math.round(love),
+        communication: Math.round(communication),
+        trust: Math.round(trust),
+        chemistry: Math.round(chemistry),
+        friendship: Math.round(friendship)
+      };
+    }
+
+    function showCompatibility() {
+      const sign1Id = document.getElementById('sign1').value;
+      const sign2Id = document.getElementById('sign2').value;
+      if (!sign1Id || !sign2Id) {
+        alert('Por favor, selecione os dois signos.');
+        return;
+      }
+
+      const result = calculateCompatibility(sign1Id, sign2Id);
+      if (!result) return;
+
+      const s1 = zodiacData[sign1Id];
+      const s2 = zodiacData[sign2Id];
+
+      const resultDiv = document.getElementById('compatResult');
+      const scoreEl = document.getElementById('compatScore');
+      const barsEl = document.getElementById('compatBars');
+      const descEl = document.getElementById('compatDescription');
+
+      if (!resultDiv || !scoreEl || !barsEl || !descEl) return;
+
+      scoreEl.textContent = result.score + '%';
+
+      const categories = [
+        { label: 'Amor', value: result.love, icon: '❤️' },
+        { label: 'Comunicação', value: result.communication, icon: '💬' },
+        { label: 'Confiança', value: result.trust, icon: '🤝' },
+        { label: 'Química', value: result.chemistry, icon: '⚡' },
+        { label: 'Amizade', value: result.friendship, icon: '✨' }
+      ];
+
+      barsEl.innerHTML = categories.map(c => `
+        <div class="compat-bar-item">
+          <span class="lbl">${c.icon} ${c.label}</span>
+          <div class="bar"><div class="fill" data-width="${c.value}"></div></div>
+          <span class="pct">${c.value}%</span>
+        </div>
+      `).join('');
+
+      // Animar barras
+      setTimeout(() => {
+        document.querySelectorAll('#compatBars .fill').forEach(el => {
+          const w = el.dataset.width;
+          if (w) el.style.width = w + '%';
+        });
+      }, 100);
+
+      let desc = '';
+      if (result.score >= 80) desc = `${s1.name} e ${s2.name} têm uma conexão extremamente forte e harmoniosa.`;
+      else if (result.score >= 60) desc = `${s1.name} e ${s2.name} têm boa compatibilidade, com alguns pontos a trabalhar.`;
+      else if (result.score >= 40) desc = `${s1.name} e ${s2.name} podem se entender, mas exigirão esforço e paciência.`;
+      else desc = `${s1.name} e ${s2.name} têm diferenças significativas que podem gerar desafios.`;
+
+      descEl.textContent = desc;
+      resultDiv.classList.add('visible');
+    }
+
+    // ============================================================
+    // 9. COMPARTILHAMENTO
+    // ============================================================
+    function shareResult(platform) {
+      const signId = window.currentSignId;
+      if (!signId) {
+        alert('Primeiro descubra seu signo!');
+        return;
+      }
+      const sign = zodiacData[signId];
+      const text = `Meu signo é ${sign.name} ${sign.symbol}! Descubra o seu também.`;
+      const url = window.location.href;
+
+      if (platform === 'whatsapp') {
+        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+      } else if (platform === 'facebook') {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank');
+      } else if (platform === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+      }
+    }
+
+    function copyResult() {
+      const signId = window.currentSignId;
+      if (!signId) {
+        alert('Primeiro descubra seu signo!');
+        return;
+      }
+      const sign = zodiacData[signId];
+      const text = `Meu signo é ${sign.name} ${sign.symbol} (${sign.start} a ${sign.end}). Elemento: ${sign.element}. Planeta: ${sign.planet}.`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Resultado copiado para a área de transferência!');
+      }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); alert('Resultado copiado!'); } catch (e) { alert('Não foi possível copiar.'); }
+        document.body.removeChild(ta);
+      });
+    }
+
+    // ============================================================
+    // 10. FORMULÁRIO PRINCIPAL
+    // ============================================================
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('birthDate');
+      const value = input.value;
+      if (!value) {
+        alert('Por favor, informe sua data de nascimento.');
+        return;
+      }
+
+      const parts = value.split('-');
+      if (parts.length !== 3) {
+        alert('Data inválida. Use o formato correto.');
+        return;
+      }
+
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; // JS month 0-based
+      const day = parseInt(parts[2], 10);
+
+      const birthDate = new Date(year, month, day);
+      const today = getToday();
+
+      if (birthDate > today) {
+        alert('A data de nascimento não pode ser no futuro.');
+        return;
+      }
+
+      // Verificar se a data é válida (ex: 31 de fevereiro)
+      if (birthDate.getFullYear() !== year || birthDate.getMonth() !== month || birthDate.getDate() !== day) {
+        alert('Data inválida. Verifique o dia e o mês.');
+        return;
+      }
+
+      // Loading
+      const loading = document.getElementById('loadingOverlay');
+      loading.classList.add('active');
+
+      setTimeout(() => {
+        loading.classList.remove('active');
+
+        const signId = getSignFromDate(birthDate);
+        renderZodiacData(signId);
+
+        const resultSection = document.getElementById('resultSection');
+        resultSection.classList.add('visible');
+
+        // Scroll suave até o resultado
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Atualizar selects de compatibilidade com o signo do usuário
+        const sign1Select = document.getElementById('sign1');
+        if (sign1Select) {
+          sign1Select.value = signId;
+        }
+      }, 1000);
+    }
+
+    // ============================================================
+    // 11. INICIALIZAÇÃO
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      createStars();
+      populateSelects();
+      renderZodiacList();
+
+      // Menu mobile
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = navLinks.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', isOpen);
+        });
+        // Fechar ao clicar em um link
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // Formulário
+      const form = document.getElementById('birthForm');
+      if (form) {
+        form.addEventListener('submit', handleFormSubmit);
+      }
+
+      // Botão nova mensagem
+      const newMsgBtn = document.getElementById('newMessageBtn');
+      if (newMsgBtn) {
+        newMsgBtn.addEventListener('click', () => {
+          if (window.currentSignId) generateMessage(window.currentSignId);
+        });
+      }
+
+      // Compatibilidade
+      const compatBtn = document.getElementById('compatBtn');
+      if (compatBtn) {
+        compatBtn.addEventListener('click', showCompatibility);
+      }
+
+      // Modal - fechar
+      const modalClose = document.getElementById('modalClose');
+      const modalOverlay = document.getElementById('modalOverlay');
+      if (modalClose) modalClose.addEventListener('click', closeZodiacModal);
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+          if (e.target === modalOverlay) closeZodiacModal();
+        });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeZodiacModal();
+      });
+
+      // Botão voltar ao topo
+      const backToTop = document.getElementById('backToTop');
+      if (backToTop) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 400) {
+            backToTop.classList.add('visible');
+          } else {
+            backToTop.classList.remove('visible');
+          }
+        });
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Ano no footer
+      const yearEl = document.getElementById('currentYear');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
